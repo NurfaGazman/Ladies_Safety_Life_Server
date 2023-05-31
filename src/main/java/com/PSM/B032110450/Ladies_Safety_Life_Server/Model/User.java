@@ -2,6 +2,8 @@ package com.PSM.B032110450.Ladies_Safety_Life_Server.Model;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,7 +20,6 @@ public class User {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	
 	@Column (name = "user_Id")
 	private int User_Id;
 	
@@ -28,6 +29,8 @@ public class User {
 	@Column (name = "full_name")
 	private String full_name;
 	
+	//write only will prevent user password from being returned in request
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@Column (name = "password")
 	private String password;
 	

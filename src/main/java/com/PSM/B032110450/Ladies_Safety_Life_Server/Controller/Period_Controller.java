@@ -10,6 +10,8 @@ import com.PSM.B032110450.Ladies_Safety_Life_Server.Model.Period;
 import com.PSM.B032110450.Ladies_Safety_Life_Server.Model.User;
 import com.PSM.B032110450.Ladies_Safety_Life_Server.Repository.Period_repository;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 @RestController
 @RequestMapping("/api/Period")
 public class Period_Controller {
@@ -19,8 +21,14 @@ public class Period_Controller {
 	
 
 	@PostMapping()
-	public Period insertperiod(@RequestBody Period period) {
+	public Period insertperiod(HttpServletRequest request,  @RequestBody Period period) {
+		
+		int userId = Integer.parseInt( request.getAttribute("user_Id").toString());
+		
+		period.setUser_Id(userId);
+		
 		return period_repository.save(period);
 	
 	}
 }
+
