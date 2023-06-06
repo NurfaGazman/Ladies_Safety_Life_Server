@@ -10,8 +10,8 @@ import jakarta.persistence.Embeddable;
 
 public class Contact_Id implements Serializer{
 
-	private int user_Id;
-	private int contact_Id;
+	private int userId;
+	private String contact_no;
 	
 	@Override
 	public void serialize(Object object, OutputStream outputStream) throws IOException {
@@ -19,6 +19,24 @@ public class Contact_Id implements Serializer{
 		
 		
 	}
+ 
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
+	public String getContact_no() {
+		return contact_no;
+	}
+
+	public void setContact_no(String contact_no) {
+		this.contact_no = contact_no;
+	}
+ 
 
 	
 }

@@ -16,30 +16,30 @@ import jakarta.persistence.Table;
 public class Contact {
 
 	@Id
-	@Column (name = "user_Id")
-	private int user_Id;
+	@Column (name = "userId")
+	private int userId;
 	
 	@Id
-	@Column (name = "contact_Id")
-	private int contact_Id;
+	@Column (name = "contact_no")
+	private String contact_no;
 	
 	@Column (name = "message")
 	private String message;
 
-	public int getUser_Id() {
-		return user_Id;
+	public int getUserId() {
+		return userId;
 	}
 
-	public void setUser_Id(int user_Id) {
-		this.user_Id = user_Id;
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 
-	public int getContact_Id() {
-		return contact_Id;
+	public String getContact_no() {
+		return contact_no;
 	}
 
-	public void setContact_Id(int contact_Id) {
-		this.contact_Id = contact_Id;
+	public void setcontact_no(String contact_no) {
+		this.contact_no = contact_no;
 	}
 
 	public String getMessage() {
