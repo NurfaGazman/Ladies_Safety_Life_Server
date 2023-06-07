@@ -17,6 +17,7 @@ import com.PSM.B032110450.Ladies_Safety_Life_Server.Model.Contact;
 import com.PSM.B032110450.Ladies_Safety_Life_Server.Model.Contact_Id;
 import com.PSM.B032110450.Ladies_Safety_Life_Server.Repository.Contact_repository;
 
+import jakarta.security.auth.message.callback.SecretKeyCallback.Request;
 import jakarta.servlet.http.HttpServletRequest;
 
 
@@ -29,9 +30,12 @@ public class Contact_controller {
 	private Contact_repository contact_repository;
 	
 	@PostMapping()
-	public Contact insertContact (@RequestBody Contact contact) {
+	public Contact insertContact (HttpServletRequest request, @RequestBody Contact contact) {
+		int userId = Integer.parseInt(request.getAttribute("user_Id").toString());
+		contact.setUserId(userId);
 		return contact_repository.save(contact);
 	}
+	
 	
 	@GetMapping
 	public List<Contact> getcontaContact(HttpServletRequest request) {
