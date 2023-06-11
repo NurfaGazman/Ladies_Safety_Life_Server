@@ -1,7 +1,12 @@
 package com.PSM.B032110450.Ladies_Safety_Life_Server.Controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,9 +31,14 @@ public class Period_Controller {
 		int userId = Integer.parseInt( request.getAttribute("user_Id").toString());
 		
 		period.setUser_Id(userId);
-		
 		return period_repository.save(period);
 	
 	}
+	
+	@GetMapping()
+	public Period getPeriod(HttpServletRequest request) {	
+		long userId = Integer.parseInt(request.getAttribute("user_Id").toString()); 
+		return  period_repository.findById(userId).get();
+	}	
+	
 }
-

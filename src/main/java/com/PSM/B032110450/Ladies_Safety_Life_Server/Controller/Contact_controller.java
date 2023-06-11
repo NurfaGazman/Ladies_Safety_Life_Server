@@ -15,7 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.PSM.B032110450.Ladies_Safety_Life_Server.Model.Contact;
 import com.PSM.B032110450.Ladies_Safety_Life_Server.Model.Contact_Id;
+import com.PSM.B032110450.Ladies_Safety_Life_Server.Model.Location;
 import com.PSM.B032110450.Ladies_Safety_Life_Server.Repository.Contact_repository;
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
 
 import jakarta.security.auth.message.callback.SecretKeyCallback.Request;
 import jakarta.servlet.http.HttpServletRequest;
@@ -56,5 +59,26 @@ public class Contact_controller {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
+	@PostMapping("/emergency")
+	public ResponseEntity<HttpStatus> emergencyAPI(HttpServletRequest request, @RequestBody Location location){
+		//long userId = Integer.parseInt(request.getAttribute("user_Id").toString()); 
+		//List<Contact> getContacts = contact_repository.findAllByuserId((int)userId);
+		//for(Contact contact:getContacts) {
+			//Whatsapp_controller.sendMessage(contact.getContact_no(),"try send");	
+		//}
+		
 	
+		
+		Twilio.init("AC5ac0d75557d2b8dd97d2df206a2f0fcf", "f14d1cf448d495d76621f180cc45ad5a");
+		Message message = Message.creator(
+				new com.twilio.type.PhoneNumber("whatsapp:+601133037857"),
+				new com.twilio.type.PhoneNumber("whatsapp:14155238886"),
+				"message").create();
+				
+				System.out.println(message.getSid());
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+
 }
+

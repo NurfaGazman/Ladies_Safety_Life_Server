@@ -43,6 +43,13 @@
 			<scope>test</scope>
 		</dependency>
 		
+		<!-- Whatsapp  -->
+		<dependency>
+			<groupId>com.twilio.sdk</groupId>
+			<artifactId>twilio</artifactId>
+			<version>7.16.1</version>
+		</dependency>
+		
 		 <!-- Token  -->
 		 
 		<dependency>

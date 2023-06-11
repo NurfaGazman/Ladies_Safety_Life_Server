@@ -30,8 +30,7 @@ public class User_controller {
 	
 	@GetMapping
 	public User getUser(HttpServletRequest request) {
-			long userId = Integer.parseInt(request.getAttribute("user_Id").toString()); 
-			
+			long userId = Integer.parseInt(request.getAttribute("user_Id").toString()); 		
 		return  user_repository.findById(userId).get();
 	}
 	
