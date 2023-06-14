@@ -8,6 +8,8 @@ public class LadiesSafetyLifeServerApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(LadiesSafetyLifeServerApplication.class, args);
+	
+		
 	}
 
 }
