@@ -18,7 +18,7 @@ public class EmailController {
 	@Autowired
 	  private EmailService emailService;
 	
-//sendemail function
+	//sendemail function
 	//(parameter) emaildetail
 	//return type string
 	
@@ -35,8 +35,14 @@ public class EmailController {
 	  	  
 	  	  return emailSendString;
 	  	  
-	  
 	  }
+	  
+	  
+	  
+	  
+	  
+	  
+	  
 	  
 	  
 	  // Sending email with attachment

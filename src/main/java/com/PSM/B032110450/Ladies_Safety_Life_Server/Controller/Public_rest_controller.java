@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.PSM.B032110450.Ladies_Safety_Life_Server.Model.EmailDetails;
 import com.PSM.B032110450.Ladies_Safety_Life_Server.Model.User;
 import com.PSM.B032110450.Ladies_Safety_Life_Server.Repository.User_repository;
 import com.PSM.B032110450.Ladies_Safety_Life_Server.Service.JwtTools;
@@ -27,6 +28,8 @@ public class Public_rest_controller {
 	
 	//part login utk dpt token
 	
+	//login part
+	
 	
 	@PostMapping("/login")
 	public ResponseEntity<?> login (@RequestBody User user){
@@ -40,11 +43,39 @@ public class Public_rest_controller {
 		}
 	}
 	
-	@PostMapping("/reset")
+	//reset email first try
+	
+	/*@PostMapping("/reset")
 	public ResponseEntity<?> reset (@RequestBody User user){
 		User resetUser = user_Repository.findbyEmail(user.getEmail());
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body("");
+	
+	}*/
+	
+	
+	//reset password for(forgot password) 
+	
+	@PostMapping("/reset")
+	public ResponseEntity<?>reset(@RequestBody User user){
+		User resetUser = user_Repository.findbyEmail(user.getEmail());
+		if(resetUser == null) {
+			return ResponseEntity.badRequest().body("Invalid email");
+		}
+		
+		 String newPassword = "test";
+		 resetUser.setPassword(newPassword);
+		 user_Repository.save(resetUser);
+		 
+		 EmailDetails emailDetails = new EmailDetails();
+		 
+		emailDetails.setRecipient(resetUser.getEmail());
+		emailDetails.setSubject("Password Reset");
+		emailDetails.setMsgBodyString("Your new password is: " + newPassword);
+		
+		 return ResponseEntity.ok().body("Password reset successful");
+		 
 	}
+	
 	
 		
 	@GetMapping("/api/verify")
@@ -52,6 +83,7 @@ public class Public_rest_controller {
 		return ResponseEntity.ok().body("");
 	}
 	
+	//register part 
 	
 	@PostMapping("/register")
 	public User insertuser(@RequestBody User user) {
