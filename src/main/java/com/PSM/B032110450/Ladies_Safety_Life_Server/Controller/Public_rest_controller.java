@@ -14,6 +14,8 @@ import com.PSM.B032110450.Ladies_Safety_Life_Server.Model.User;
 import com.PSM.B032110450.Ladies_Safety_Life_Server.Repository.User_repository;
 import com.PSM.B032110450.Ladies_Safety_Life_Server.Service.JwtTools;
 
+import jakarta.validation.constraints.Email;
+
 @RestController
 @RequestMapping("/")
 
@@ -38,6 +40,13 @@ public class Public_rest_controller {
 		}
 	}
 	
+	@PostMapping("/reset")
+	public ResponseEntity<?> reset (@RequestBody User user){
+		User resetUser = user_Repository.findbyEmail(user.getEmail());
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body("");
+	}
+	
+		
 	@GetMapping("/api/verify")
 	public ResponseEntity<?> testToken(){
 		return ResponseEntity.ok().body("");

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.PSM.B032110450.Ladies_Safety_Life_Server.Model.EmailDetails;
 
+@Service
 public class EmailServiceImpl implements EmailService {
 	
 	@Autowired 
@@ -27,7 +28,7 @@ public class EmailServiceImpl implements EmailService {
 		
 		try {
 			SimpleMailMessage mailMessage = new SimpleMailMessage();
-			mailMessage.setFrom(sender);
+			mailMessage.setFrom(sender); 
 			mailMessage.setTo(details.getRecipient());
 			mailMessage.setText(details.getMsgBodyString());
 			mailMessage.setSubject(details.getSubject());
@@ -35,8 +36,7 @@ public class EmailServiceImpl implements EmailService {
 			//Sending the mail
 			javaMailSender.send(mailMessage);
 			return  "Mail send Successfully" ;
-					
-					
+								
 		}
 		
 		//catch block to handle the expection
