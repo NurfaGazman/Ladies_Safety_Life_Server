@@ -17,10 +17,7 @@ import com.PSM.B032110450.Ladies_Safety_Life_Server.Service.EmailService;
 public class EmailController {
 	@Autowired
 	  private EmailService emailService;
-	
-	//sendemail function
-	//(parameter) emaildetail
-	//return type string
+
 	
 	  
 	  @PostMapping
@@ -31,18 +28,11 @@ public class EmailController {
 	  	  emailDetails.setSubject("KASI JADI");
 	  	  
 	  	  String emailSendString = emailService.sendSimpleMail(emailDetails);	  
-	  	  //emailService.sendSimpleMail(emailDetails);
+	  	  //EmailController.sendSimpleMail(emailDetails);
 	  	  
 	  	  return emailSendString;
 	  	  
 	  }
-	  
-	  
-	  
-	  
-	  
-	  
-	  
 	  
 	  
 	  // Sending email with attachment
@@ -56,6 +46,6 @@ public class EmailController {
 	  
 	 
 	  
-	
+		
 	
 }

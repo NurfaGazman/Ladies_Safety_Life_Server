@@ -1,5 +1,6 @@
 package com.PSM.B032110450.Ladies_Safety_Life_Server.Controller;
 
+import org.hibernate.Length;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -13,7 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.PSM.B032110450.Ladies_Safety_Life_Server.Model.EmailDetails;
 import com.PSM.B032110450.Ladies_Safety_Life_Server.Model.User;
 import com.PSM.B032110450.Ladies_Safety_Life_Server.Repository.User_repository;
+import com.PSM.B032110450.Ladies_Safety_Life_Server.Service.EmailService;
+import com.PSM.B032110450.Ladies_Safety_Life_Server.Service.EmailServiceImpl;
 import com.PSM.B032110450.Ladies_Safety_Life_Server.Service.JwtTools;
+import com.PSM.B032110450.Ladies_Safety_Life_Server.Service.Utils;
+
 
 import jakarta.validation.constraints.Email;
 
@@ -25,6 +30,9 @@ public class Public_rest_controller {
 	
 	@Autowired
 	private User_repository user_Repository;
+	//bru tmbh
+	@Autowired
+	private EmailService emailService;
 	
 	//part login utk dpt token
 	
@@ -55,27 +63,76 @@ public class Public_rest_controller {
 	
 	//reset password for(forgot password) 
 	
-	@PostMapping("/reset")
+//----asal first utk test----//
+	/*@PostMapping("/reset")
+	
+	//function utk /reset password yg ambik dari user nurfathihahgazman@gmail.com
+	//find by mail.. mail user yg nk reset tu dtg @RequestBody User user
+	
 	public ResponseEntity<?>reset(@RequestBody User user){
-		User resetUser = user_Repository.findbyEmail(user.getEmail());
+		
+		//tarik dari set user_repo panggil daripd findbyemail.
+		//set string newpassword=test utk replace obj resetUser simpan kt user repo
+		
+		User resetUser = user_Repository.findByEmail(user.getEmail());
 		if(resetUser == null) {
 			return ResponseEntity.badRequest().body("Invalid email");
 		}
-		
+		//test new password
 		 String newPassword = "test";
 		 resetUser.setPassword(newPassword);
 		 user_Repository.save(resetUser);
 		 
+		 //obj class nama EmailDetails pastu set resetUser
 		 EmailDetails emailDetails = new EmailDetails();
+		 //subj dia buh reset password
+		 emailDetails.setRecipient(resetUser.getEmail());
+		 emailDetails.setSubject("Password Reset");
 		 
-		emailDetails.setRecipient(resetUser.getEmail());
-		emailDetails.setSubject("Password Reset");
-		emailDetails.setMsgBodyString("Your new password is: " + newPassword);
+		 //msjbody set new password tp ambik yg +newpassword="test" 
+		 emailDetails.setMsgBodyString("Your new password is: " + newPassword);
 		
 		 return ResponseEntity.ok().body("Password reset successful");
 		 
-	}
+	}*/
 	
+	// ---- yang baru utk reset password ----//
+	
+	
+	
+	@PostMapping("/reset")
+	
+
+	public ResponseEntity<?>reset(@RequestBody User user){
+		
+	 
+		 
+		
+		User resetUser = user_Repository.findByEmail(user.getEmail());
+		if(resetUser == null) {
+			return ResponseEntity.badRequest().body("Invalid email");
+		}
+		
+		 String newPassword = Utils.generateRandomString(15);
+		 
+		 resetUser.setPassword(newPassword);
+		 user_Repository.save(resetUser);
+		 
+		
+		 EmailDetails emailDetails = new EmailDetails();
+		 
+		 emailDetails.setRecipient(resetUser.getEmail());
+		 emailDetails.setSubject("Password Reset");
+		 emailDetails.setMsgBodyString("Your new password is: " + newPassword);
+		
+		 emailService.sendSimpleMail(emailDetails);
+		 
+		 
+		 
+		 return ResponseEntity.ok().body("Password reset successful");
+	
+	
+}
 	
 		
 	@GetMapping("/api/verify")
