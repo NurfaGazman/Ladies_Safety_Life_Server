@@ -32,13 +32,22 @@ public class Period_Controller {
 		
 		period.setUser_Id(userId);
 		return period_repository.save(period);
-	
+
 	}
 	
 	@GetMapping()
-	public Period getPeriod(HttpServletRequest request) {	
+	public List<Period> getPeriod(HttpServletRequest request) {	
 		long userId = Integer.parseInt(request.getAttribute("user_Id").toString()); 
-		return  period_repository.findById(userId).get();
+		return  period_repository.userPeriods(userId);
 	}	
 	
+   
+	@PutMapping
+	public Period updatePeriod(@RequestBody Period period) {
+		return period_repository.save(period);
+	}
+	
+	
 }
+
+

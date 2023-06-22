@@ -52,7 +52,7 @@ public class Public_rest_controller {
 	}
 	
 	//reset email first try
-	
+
 	/*@PostMapping("/reset")
 	public ResponseEntity<?> reset (@RequestBody User user){
 		User resetUser = user_Repository.findbyEmail(user.getEmail());
