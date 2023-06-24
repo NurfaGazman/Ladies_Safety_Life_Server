@@ -67,10 +67,18 @@
     	</dependency>
 		
 		<!-- telegram  -->
-		<dependency>
+		
+		<!-- <dependency>
 			<groupId>org.telegram</groupId>
 			<artifactId>telegrambots</artifactId>
 			<version>6.7.0</version>
+		</dependency>-->
+		
+		<!-- whatsapp-->
+		<dependency>
+			<groupId>com.twilio.sdk</groupId>
+			<artifactId>twilio</artifactId>
+			<version>7.16.1</version>
 		</dependency>
 		
 		 <!-- Token  -->
@@ -92,6 +100,8 @@
 			<artifactId>jjwt-jackson</artifactId>
 			<version>0.11.5</version>
 		</dependency>
+		
+	
 		 
 	</dependencies>
 

@@ -16,7 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.PSM.B032110450.Ladies_Safety_Life_Server.Model.Contact;
 import com.PSM.B032110450.Ladies_Safety_Life_Server.Model.Contact_Id;
 import com.PSM.B032110450.Ladies_Safety_Life_Server.Model.Location;
+import com.PSM.B032110450.Ladies_Safety_Life_Server.Model.User;
 import com.PSM.B032110450.Ladies_Safety_Life_Server.Repository.Contact_repository;
+import com.PSM.B032110450.Ladies_Safety_Life_Server.Repository.Location_repository;
+import com.PSM.B032110450.Ladies_Safety_Life_Server.Repository.User_repository;
+import com.PSM.B032110450.Ladies_Safety_Life_Server.Service.WhatsappService;
 
 import jakarta.security.auth.message.callback.SecretKeyCallback.Request;
 import jakarta.servlet.http.HttpServletRequest;
@@ -29,6 +33,12 @@ public class Contact_controller {
 
 	@Autowired
 	private Contact_repository contact_repository;
+	
+	@Autowired
+	private Location_repository location_repository;
+	
+	@Autowired
+	private User_repository user_repository;
 	
 	@PostMapping()
 	public Contact insertContact (HttpServletRequest request, @RequestBody Contact contact) {
@@ -57,15 +67,24 @@ public class Contact_controller {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
-	//@PostMapping("/emergency")
-	//public ResponseEntity<HttpStatus> emergencyAPI(HttpServletRequest request, @RequestBody Location location){
-		//long userId = Integer.parseInt(request.getAttribute("user_Id").toString()); 
-		//List<Contact> getContacts = contact_repository.findAllByuserId((int)userId);
-		//for(Contact contact:getContacts) {
-			//Whatsapp_controller.sendMessage(contact.getContact_no(),"try send");	
-		//}
+	
+	@PostMapping("/emergency")
+	public ResponseEntity<HttpStatus> emergencyAPI(HttpServletRequest request, @RequestBody Location location){
+		Long userId = Long.valueOf(request.getAttribute("user_Id").toString()); 
+		User user = user_repository.findById(userId).get();
+		location.setUser_Id(userId.intValue());
+		System.out.println(location.getLatitude()+" "+location.getLongitude());
 		
-	//}
+		location_repository.save(location);
+		String msg = " EMERGENCY LOCATION FROM " + user.getFull_name()
+		+"\n https://www.google.com/maps/search/?api=1&query="+location.getLatitude()+","+location.getLongitude();
+		System.out.print(msg);
+		List<Contact> getContacts = contact_repository.findAllByuserId(userId.intValue());
+		for(Contact contact:getContacts) {
+			WhatsappService.send(contact.getContact_no(),msg);	
+		}
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
 	
 
 }

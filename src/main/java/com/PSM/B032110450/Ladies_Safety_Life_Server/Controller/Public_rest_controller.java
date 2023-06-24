@@ -20,7 +20,6 @@ import com.PSM.B032110450.Ladies_Safety_Life_Server.Service.JwtTools;
 import com.PSM.B032110450.Ladies_Safety_Life_Server.Service.Utils;
 
 
-import jakarta.validation.constraints.Email;
 
 @RestController
 @RequestMapping("/")
@@ -126,8 +125,6 @@ public class Public_rest_controller {
 		 emailDetails.setMsgBodyString("Your new password is: " + newPassword);
 		
 		 emailService.sendSimpleMail(emailDetails);
-		 
-		 
 		 
 		 return ResponseEntity.ok().body("Password reset successful");
 	
