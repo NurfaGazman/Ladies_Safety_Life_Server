@@ -81,6 +81,7 @@ public class Contact_controller {
 		System.out.print(msg);
 		List<Contact> getContacts = contact_repository.findAllByuserId(userId.intValue());
 		for(Contact contact:getContacts) {
+			System.out.println(contact.getContact_no());
 			WhatsappService.send(contact.getContact_no(),msg);	
 		}
 		return new ResponseEntity<>(HttpStatus.OK);
