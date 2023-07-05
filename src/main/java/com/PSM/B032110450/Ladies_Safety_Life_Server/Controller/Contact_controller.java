@@ -78,11 +78,18 @@ public class Contact_controller {
 		location_repository.save(location);
 		String msg = " EMERGENCY LOCATION FROM " + user.getFull_name()
 		+"\n https://www.google.com/maps/search/?api=1&query="+location.getLatitude()+","+location.getLongitude();
-		System.out.print(msg);
+		System.out.println(msg);
 		List<Contact> getContacts = contact_repository.findAllByuserId(userId.intValue());
+		System.out.println(getContacts.size());
 		for(Contact contact:getContacts) {
 			System.out.println(contact.getContact_no());
 			WhatsappService.send(contact.getContact_no(),msg);	
+			try {
+				Thread.sleep(3000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
