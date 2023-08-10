@@ -1,6 +1,8 @@
 package com.PSM.B032110450.Ladies_Safety_Life_Server.Controller;
 
+import org.aspectj.weaver.ast.Test;
 import org.hibernate.Length;
+import org.hibernate.query.NativeQuery.ReturnableResultNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -38,6 +40,8 @@ public class Public_rest_controller {
 	//login part
 	
 	
+	// login method
+	//user parameter
 	@PostMapping("/login")
 	public ResponseEntity<?> login (@RequestBody User user){
 		User loginUser = user_Repository.findByEmailAndPassword(user.getEmail(),user.getPassword());
@@ -143,6 +147,11 @@ public class Public_rest_controller {
 	public User insertuser(@RequestBody User user) {
 		System.out.println("Test");
 		return user_Repository.save(user);
+	}
+	
+	@GetMapping("/test")
+	public String testLogin() {
+		return "test"; 
 	}
 	
 	//logout
