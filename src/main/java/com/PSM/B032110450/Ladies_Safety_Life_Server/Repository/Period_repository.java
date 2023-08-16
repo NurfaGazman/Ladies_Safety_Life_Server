@@ -11,6 +11,7 @@ import com.PSM.B032110450.Ladies_Safety_Life_Server.Model.Period;
 
 @Repository
 public interface Period_repository extends JpaRepository<Period, Long> {
-@Query(value = "SELECT * FROM period WHERE user_Id = :userID", nativeQuery = true)
+@Query(value = "SELECT * FROM period WHERE user_Id = :userID Order by start_date ASC", nativeQuery = true)
+
 	public List <Period> userPeriods(@Param("userID") Long userID ); 
 }
