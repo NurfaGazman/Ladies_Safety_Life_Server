@@ -38,13 +38,15 @@ public class Period_Controller {
 
 	}
 	
+	//refer dekt list punya period db .using getPeriod
+	
 	@GetMapping()
 	public List<Period> getPeriod(HttpServletRequest request) {	
 		long userId = Integer.parseInt(request.getAttribute("user_Id").toString()); 
 		return  period_repository.userPeriods(userId);
 	}	
 	
-   
+   //update
 	@PutMapping
 	public Period updatePeriod(@RequestBody Period period) {
 		return period_repository.save(period);
