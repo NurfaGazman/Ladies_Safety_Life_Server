@@ -32,5 +32,5 @@ build/
 ### VS Code ###
 .vscode/
 
-src/main/java/com/PSM/B032110450/Ladies_Safety_Life_Server/Service/WhatsappService.java
+**/WhatsappService.java
 
